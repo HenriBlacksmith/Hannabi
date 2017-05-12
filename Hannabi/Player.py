@@ -22,3 +22,6 @@ class Player(object):
         print self.get_name()
         for card in self.card_hand:
             print card.display_card()     
+            
+    def recycle_card(self, index):
+        del self.card_hand[index]

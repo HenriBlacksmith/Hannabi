@@ -6,12 +6,15 @@ from Player import Player
 from Card import Card
 from numpy.random import randint
 
+# -- class
 class Game(object):
     def __init__(self):
         self.n_tokens = 8
+        self.n_red_tokens = 0
         self.active_tokens = self.n_tokens
         self.card_shoe = []
-        self.players = []
+        self.players = {}
+        self.recycled_cards = []
         
         self.COLORS = ['Blue', 'Red', 'Green', 'Yellow', 'White']
         self.NUMBERS = ['1', '2', '3', '4', '5']
@@ -53,17 +56,22 @@ class Game(object):
         
     def distribute_card_hands(self):
         for i in xrange(5):
-            for player in self.players:
-                player.take_card(self.get_card())
+            for player_name in self.players.keys():
+                self.players[player_name].take_card(self.get_card())
     
-    def add_player(self, name):
-        player = Player(name)
-        self.players.append(player)
+    def add_player(self, name): 
+        self.players[name] = Player(name)
+        
+    def recycle_card(self, player_name, index):
+        self.players[player_name].recycle_card(index)
+        
+    def give_card(self, player_name):
+        self.players[player_name].take_card(self.get_card())
         
     def show_hands(self):
-        for player in self.players:
-            player.display_hand()
-            
+        for player_name in self.players.keys():
+            self.players[player_name].display_hand()
+    
     # -- private methods
     def __generate_ordered_shoe(self):
         ordered_shoe = []
