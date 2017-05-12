@@ -22,3 +22,4 @@ class Card(object):
     # -- public methods
     def display_card(self):
         print self.get_color(), self.get_number()
+        
