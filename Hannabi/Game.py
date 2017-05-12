@@ -3,6 +3,7 @@
 '''
 # -- imports
 from Card import Card
+from numpy.random import randint
 
 class Game(object):
     def __init__(self):
@@ -15,8 +16,6 @@ class Game(object):
         self.AMOUNTS = [3, 2, 2, 2, 1]
         
     # -- getters
-    def get_tokens(self):
-        return self.__Tokens
     
     # -- public methods
     def burn_token(self):
@@ -26,11 +25,29 @@ class Game(object):
         return None
     
     def generate_card_shoe(self):
-        self.card_shoe = self.__generate_ordered_shoe()
+        ordered_card_shoe = self.__generate_ordered_shoe()
+        card_shoe = []
+        n_cards = len(ordered_card_shoe)
+        for i in xrange(n_cards):
+            n_cards_remaining = n_cards - i
+            index_card_to_pile = randint(n_cards_remaining)
+            card_shoe.append(ordered_card_shoe[index_card_to_pile])
+            del ordered_card_shoe[index_card_to_pile]
+        self.card_shoe = card_shoe
+            
     
     def display_shoe(self):
         for card in self.card_shoe:
             card.display_card()
+    
+    def get_card(self):
+        if len(self.card_shoe) > 0:
+            card = self.card_shoe[-1]
+            del self.card_shoe[-1]
+            return card
+        else :
+            print 'The card shoe is empty'
+            return None
             
     # -- private methods
     def __generate_ordered_shoe(self):
