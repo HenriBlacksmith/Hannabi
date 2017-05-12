@@ -60,6 +60,10 @@ class Game(object):
         player = Player(name)
         self.players.append(player)
         
+    def show_hands(self):
+        for player in self.players:
+            player.display_hand()
+            
     # -- private methods
     def __generate_ordered_shoe(self):
         ordered_shoe = []

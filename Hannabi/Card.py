@@ -1,7 +1,7 @@
 '''
     @author: HenriBlacksmith
 '''
-
+# -- class
 class Card(object):
     # -- builder
     def __init__(self, color, number, id):
@@ -21,5 +21,4 @@ class Card(object):
     
     # -- public methods
     def display_card(self):
-        print self.get_color(), self.get_number()
-        
+        return 'Color = ' + self.get_color() + ' Number = ' + self.get_number()

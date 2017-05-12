@@ -12,7 +12,7 @@ Tasks :
 '''
 game = Game()
 game.generate_card_shoe()
-game.display_shoe()
 game.add_player('Henry')
 game.add_player('Joe')
 game.distribute_card_hands()
+game.show_hands()
