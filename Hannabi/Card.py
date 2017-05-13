@@ -1,12 +1,13 @@
 '''
     @author: HenriBlacksmith
+    @copyright: CC-BY-NC
 '''
 # -- class
 class Card(object):
     # -- builder
     def __init__(self, color, number, id):
-        self.__color = color
-        self.__number = number
+        self.__color = color # Card color
+        self.__number = number # Card number
         self.__id = id
     
     # -- getters
@@ -21,4 +22,7 @@ class Card(object):
     
     # -- public methods
     def display_card(self):
+        '''
+            @return: Returns a string describing the card attributes
+        '''
         return 'Color = ' + self.get_color() + ' Number = ' + self.get_number()

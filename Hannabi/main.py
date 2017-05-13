@@ -11,14 +11,14 @@ Tasks :
 - 
 '''
 game = Game()
-# Init the game
+# Initializes the game
 game.generate_card_shoe()
 game.generate_played_piles()
 game.add_player('Henry')
 game.add_player('Joe')
 game.distribute_card_hands()
 
-# Game actions
+# Game Workflow
 game.play_card('Joe', 2)
 game.give_card('Joe')
 game.recycle_card('Henri', 2)
