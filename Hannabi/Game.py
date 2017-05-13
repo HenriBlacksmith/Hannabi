@@ -15,6 +15,8 @@ class Game(object):
         self.card_shoe = []
         self.players = {}
         self.recycled_cards = []
+        self.played_cards = []
+        self.played_card_piles = {}
         
         self.COLORS = ['Blue', 'Red', 'Green', 'Yellow', 'White']
         self.NUMBERS = ['1', '2', '3', '4', '5']
@@ -23,9 +25,19 @@ class Game(object):
     # -- getters
     
     # -- public methods
+    def generate_played_piles(self):
+        for color in self.COLORS :
+            self.played_card_piles[color] = 0
+            
     def burn_token(self):
         self.active_tokens -= 1
         if self.active_tokens < 0:
+            print 'Game Over'
+        return None
+    
+    def red_token(self):
+        self.n_red_tokens += 1
+        if self.n_red_tokens > 3:
             print 'Game Over'
         return None
     
@@ -63,10 +75,33 @@ class Game(object):
         self.players[name] = Player(name)
         
     def recycle_card(self, player_name, index):
-        self.players[player_name].recycle_card(index)
+        card = self.players[player_name].recycle_card(index)
+        self.recycled_cards.append(card)
         
     def give_card(self, player_name):
         self.players[player_name].take_card(self.get_card())
+    
+    def play_card(self, player_name, index):
+        card = self.players[player_name].play_card(index)
+        card_color = card.get_color()
+        card_number = card.get_number()
+        print player_name, 'plays the', card_number, card_color
+        for played_card in self.played_cards :
+            if played_card == card :
+                self.red_token()
+                print 'This card has already been played - you get one red token'
+                self.recycle_card(player_name, index)
+                return None
+        if card_number == self.played_card_piles[card_color] + 1:
+            self.played_card_piles[card_color] += 1
+            self.played_cards.append(card)
+            print 'Well done'
+            return None
+        else :
+            self.red_token()
+            print 'You can\'t play this card - you get one red token'
+            self.recycled_cards.append(card)
+            return None
         
     def show_hands(self):
         for player_name in self.players.keys():

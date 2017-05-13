@@ -11,11 +11,15 @@ Tasks :
 - 
 '''
 game = Game()
+# Init the game
 game.generate_card_shoe()
+game.generate_played_piles()
 game.add_player('Henry')
 game.add_player('Joe')
 game.distribute_card_hands()
-game.show_hands()
-game.recycle_card('Henry', 1)
-game.give_card('Henry')
-game.show_hands()
+
+# Game actions
+game.play_card('Joe', 2)
+game.give_card('Joe')
+game.recycle_card('Henri', 2)
+game.give_card('Henri')

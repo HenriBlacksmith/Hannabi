@@ -17,6 +17,9 @@ class Player(object):
     # -- public methods
     def take_card(self, card):
         self.card_hand.append(card)
+        print self.get_name(), 'has taken'
+        print card.display_card()
+        print 'card'
     
     def display_hand(self):
         print self.get_name()
@@ -24,4 +27,11 @@ class Player(object):
             print card.display_card()     
             
     def recycle_card(self, index):
+        card = self.card_hand[index]
         del self.card_hand[index]
+        return card
+    
+    def play_card(self, index):
+        card = self.card_hand[index]
+        del self.card_hand[index]
+        return card
